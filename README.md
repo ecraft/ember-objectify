@@ -1,7 +1,7 @@
 ember-objectify
 ==============================================================================
 
-[Short description of the addon.]
+An Ember addon to recursively turn POJOs and Arrays into Ember Objects and Ember Arrays.
 
 Installation
 ------------------------------------------------------------------------------
@@ -14,7 +14,20 @@ ember install ember-objectify
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
+```
+import { objectify, deepObjectify } from 'ember-objectify';
+```
+
+```
+const pojo = {
+  foo: 'bar',
+  baz: {
+    zot: [1, 2, 3]
+  }
+};
+
+const result = deepObjectify(pojo);
+```
 
 
 Contributing
@@ -37,10 +50,6 @@ Contributing
 * `ember test --server` – Runs the test suite in "watch mode"
 * `ember try:each` – Runs the test suite against multiple Ember versions
 
-### Running the dummy application
-
-* `ember serve`
-* Visit the dummy application at [http://localhost:4200](http://localhost:4200).
 
 For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
 

@@ -1,13 +1,16 @@
 {
   "name": "ember-objectify",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "An Ember addon to recursively turn POJOs and Arrays into Ember Objects and Ember Arrays.",
   "keywords": [
     "ember-addon"
   ],
-  "repository": "",
+  "repository": "https://github.com/ecraft/ember-objectify",
   "license": "MIT",
-  "author": "",
+  "authors": [
+    "Joakim Nyman <joakim.nyman@ecraft.com>",
+    "Mikael Riska <mikael.riska@ecraft.com>"
+  ],
   "directories": {
     "doc": "doc",
     "test": "tests"
