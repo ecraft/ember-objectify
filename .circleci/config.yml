@@ -44,6 +44,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
       - run:
           name: Run Tests
           command: ember try:one ember-lts-2.12 --skip-cleanup=true
@@ -53,6 +54,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
       - run:
           name: Run Tests
           command: ember try:one ember-lts-2.16 --skip-cleanup=true
@@ -62,6 +64,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
       - run:
           name: Run Tests
           command: ember try:one ember-lts-2.18 --skip-cleanup=true
@@ -71,6 +74,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
       - run:
           name: Run Tests
           command: ember try:one ember-release --skip-cleanup=true
@@ -80,6 +84,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
       - run:
           name: Run Tests
           command: ember try:one ember-beta --skip-cleanup=true
@@ -89,6 +94,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
       - run:
           name: Run Tests
           command: ember try:one ember-canary --skip-cleanup=true
@@ -98,6 +104,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
       - run:
           name: Run Tests
           command: ember try:one ember-default --skip-cleanup=true
