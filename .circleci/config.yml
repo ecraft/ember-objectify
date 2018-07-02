@@ -36,75 +36,47 @@ jobs:
           paths:
             - .
 
-  ember-lts-2.12:
+  tests:
     <<: *node
+    parallelism: 6
     steps:
       - attach_workspace:
           at: .
-      - run: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+      - run:
+          name: test ember-lts-2.12
+          command: |
+            echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+            ember try:one ember-lts-2.12 --skip-cleanup=true
       - run:
           name: Run Tests
-          command: ember try:one ember-lts-2.12 --skip-cleanup=true
-
-  ember-lts-2.16:
-    <<: *node
-    steps:
-      - attach_workspace:
-          at: .
-      - run: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+          command:  |
+            echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+            ember try:one ember-lts-2.16 --skip-cleanup=true
       - run:
           name: Run Tests
-          command: ember try:one ember-lts-2.16 --skip-cleanup=true
-
-  ember-lts-2.18:
-    <<: *node
-    steps:
-      - attach_workspace:
-          at: .
-      - run: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+          command:  |
+            echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+            ember try:one ember-lts-2.18 --skip-cleanup=true
       - run:
           name: Run Tests
-          command: ember try:one ember-lts-2.18 --skip-cleanup=true
-
-  ember-release:
-    <<: *node
-    steps:
-      - attach_workspace:
-          at: .
-      - run: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+          command:  |
+            echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+            ember try:one ember-release --skip-cleanup=true
       - run:
           name: Run Tests
-          command: ember try:one ember-release --skip-cleanup=true
-
-  ember-beta:
-    <<: *node
-    steps:
-      - attach_workspace:
-          at: .
-      - run: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+          command:  |
+            echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+            ember try:one ember-beta --skip-cleanup=true
       - run:
           name: Run Tests
-          command: ember try:one ember-beta --skip-cleanup=true
-
-  ember-canary:
-    <<: *node
-    steps:
-      - attach_workspace:
-          at: .
-      - run: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+          command:  |
+            echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+            ember try:one ember-canary --skip-cleanup=true
       - run:
           name: Run Tests
-          command: ember try:one ember-canary --skip-cleanup=true
-
-  ember-default:
-    <<: *node
-    steps:
-      - attach_workspace:
-          at: .
-      - run: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
-      - run:
-          name: Run Tests
-          command: ember try:one ember-default --skip-cleanup=true
+          command:  |
+            echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+            ember try:one ember-default --skip-cleanup=true
 
 workflows:
   version: 2
@@ -112,31 +84,7 @@ workflows:
     jobs:
       - install_dependencies:
           context: org-global
-      - ember-lts-2.12:
-          context: org-global
-          requires:
-            - install_dependencies
-      - ember-lts-2.16:
-          context: org-global
-          requires:
-            - install_dependencies
-      - ember-lts-2.18:
-          context: org-global
-          requires:
-            - install_dependencies
-      - ember-release:
-          context: org-global
-          requires:
-            - install_dependencies
-      - ember-beta:
-          context: org-global
-          requires:
-            - install_dependencies
-      - ember-canary:
-          context: org-global
-          requires:
-            - install_dependencies
-      - ember-default:
+      - tests:
           context: org-global
           requires:
             - install_dependencies
