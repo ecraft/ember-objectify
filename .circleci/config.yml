@@ -40,9 +40,6 @@ jobs:
           name: Set node_modules bin path
           command: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
       - run:
-          name: Lint Coffee
-          command: coffeelint ./app
-      - run:
           name: Ember Tests
           command: ember test
       - save_cache:
