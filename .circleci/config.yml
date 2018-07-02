@@ -116,23 +116,30 @@ workflows:
       - install_dependencies:
           context: org-global
       - ember-lts-2.12:
+          context: org-global
           requires:
             - install_dependencies
       - ember-lts-2.16:
+          context: org-global
           requires:
             - install_dependencies
       - ember-lts-2.18:
+          context: org-global
           requires:
             - install_dependencies
       - ember-release:
+          context: org-global
           requires:
             - install_dependencies
       - ember-beta:
+          context: org-global
           requires:
             - install_dependencies
       - ember-canary:
+          context: org-global
           requires:
             - install_dependencies
       - ember-default:
+          context: org-global
           requires:
             - install_dependencies
