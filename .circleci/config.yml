@@ -38,45 +38,16 @@ jobs:
 
   tests:
     <<: *node
-    parallelism: 6
+    parallelism: 4
     steps:
       - attach_workspace:
           at: .
       - run:
-          name: test ember-lts-2.12
+          name: Run tests
           command: |
             export PATH=~/project/node_modules/.bin:$PATH
-            ember try:one ember-lts-2.12 --skip-cleanup=true
-      - run:
-          name: Run Tests
-          command:  |
-            export PATH=~/project/node_modules/.bin:$PATH
-            ember try:one ember-lts-2.16 --skip-cleanup=true
-      - run:
-          name: Run Tests
-          command:  |
-            export PATH=~/project/node_modules/.bin:$PATH
-            ember try:one ember-lts-2.18 --skip-cleanup=true
-      - run:
-          name: Run Tests
-          command:  |
-            export PATH=~/project/node_modules/.bin:$PATH
-            ember try:one ember-release --skip-cleanup=true
-      - run:
-          name: Run Tests
-          command:  |
-            export PATH=~/project/node_modules/.bin:$PATH
-            ember try:one ember-beta --skip-cleanup=true
-      - run:
-          name: Run Tests
-          command:  |
-            export PATH=~/project/node_modules/.bin:$PATH
-            ember try:one ember-canary --skip-cleanup=true
-      - run:
-          name: Run Tests
-          command:  |
-            export PATH=~/project/node_modules/.bin:$PATH
-            ember try:one ember-default --skip-cleanup=true
+            node .circleci/ember-try-commands.js | head -c -1 > .circleci/scenarios.txt
+            circleci tests split .circleci/scenarios.txt | xargs -n 1 -I '{}' ember try:one '{}' --skip-cleanup=true
 
 workflows:
   version: 2
