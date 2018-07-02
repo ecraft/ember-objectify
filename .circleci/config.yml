@@ -1,0 +1,63 @@
+version: 2
+
+node: &node
+  working_directory: ~/project
+  docker:
+    - image: circleci/node:8-browsers
+      environment:
+        JOBS: 2
+
+jobs:
+  checkout_code:
+    <<: *node
+    steps:
+      - checkout
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  frontend:
+    <<: *node
+    steps:
+      - attach_workspace:
+          at: .
+      - restore_cache:
+          keys:
+            - v3-npm-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - v3-npm-deps-{{ .Branch }}-
+            - v3-npm-deps-
+      - run:
+          name: Keyscan Github (HACK)
+          command: |
+            mkdir ~/.ssh
+            ssh-keyscan -H github.com > ~/.ssh/known_hosts
+      - run:
+          name: Yarn Install
+          command: |
+            echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+            yarn install --non-interactive --no-lockfile --verbose
+      - run:
+          name: Set node_modules bin path
+          command: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+      - run:
+          name: Lint Coffee
+          command: coffeelint ./app
+      - run:
+          name: Ember Tests
+          command: ember test
+      - save_cache:
+          key: v3-npm-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ../.cache
+
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - checkout_code
+      - frontend:
+          context: org-global
+          requires:
+            - checkout_code
