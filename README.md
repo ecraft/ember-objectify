@@ -14,11 +14,11 @@ ember install ember-objectify
 Usage
 ------------------------------------------------------------------------------
 
-```
+```js
 import { objectify, deepObjectify } from 'ember-objectify';
 ```
 
-```
+```js
 const pojo = {
   foo: 'bar',
   baz: {
