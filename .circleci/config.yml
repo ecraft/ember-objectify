@@ -8,20 +8,10 @@ node: &node
         JOBS: 2
 
 jobs:
-  checkout_code:
+  install_dependencies:
     <<: *node
     steps:
       - checkout
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  frontend:
-    <<: *node
-    steps:
-      - attach_workspace:
-          at: .
       - restore_cache:
           keys:
             - v1-npm-deps-{{ .Branch }}-
@@ -46,14 +36,98 @@ jobs:
           key: v1-npm-deps-{{ .Branch }}
           paths:
             - ../.cache
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
+  ember-lts-2.12:
+    <<: *node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run Tests
+          command: ember try:one ember-lts-2.12 --skip-cleanup=true
+
+  ember-lts-2.16:
+    <<: *node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run Tests
+          command: ember try:one ember-lts-2.16 --skip-cleanup=true
+
+  ember-lts-2.18:
+    <<: *node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run Tests
+          command: ember try:one ember-lts-2.18 --skip-cleanup=true
+
+  ember-release:
+    <<: *node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run Tests
+          command: ember try:one ember-release --skip-cleanup=true
+
+  ember-beta:
+    <<: *node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run Tests
+          command: ember try:one ember-beta --skip-cleanup=true
+
+  ember-canary:
+    <<: *node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run Tests
+          command: ember try:one ember-canary --skip-cleanup=true
+
+  ember-default:
+    <<: *node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run Tests
+          command: ember try:one ember-default --skip-cleanup=true
 
 workflows:
   version: 2
   test:
     jobs:
-      - checkout_code
-      - frontend:
+      - install_dependencies
           context: org-global
+      - ember-lts-2.12:
           requires:
-            - checkout_code
+            - install_dependencies
+      - ember-lts-2.16:
+          requires:
+            - install_dependencies
+      - ember-lts-2.18:
+          requires:
+            - install_dependencies
+      - ember-release:
+          requires:
+            - install_dependencies
+      - ember-beta:
+          requires:
+            - install_dependencies
+      - ember-canary:
+          requires:
+            - install_dependencies
+      - ember-default:
+          requires:
+            - install_dependencies
