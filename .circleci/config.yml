@@ -23,7 +23,7 @@ jobs:
           name: Yarn Install
           command: |
             echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
-            yarn install --non-interactive --no-lockfile --verbose
+            yarn global add ember-cli --non-interactive --no-lockfile --verbose
       - run:
           name: Set node_modules bin path
           command: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
@@ -38,7 +38,7 @@ jobs:
 
   tests:
     <<: *node
-    parallelism: 4
+    parallelism: 6
     steps:
       - attach_workspace:
           at: .
@@ -47,7 +47,7 @@ jobs:
           command: |
             export PATH=~/project/node_modules/.bin:$PATH
             node .circleci/ember-try-commands.js > .circleci/scenarios.txt
-            circleci tests split .circleci/scenarios.txt | xargs -d '\n' -n 1 -I '{}' ember try:one '{}' --skip-cleanup=true
+            circleci tests split .circleci/scenarios.txt | xargs -t -d '\n' -n 1 -I '{}' ember try:one '{}' --skip-cleanup=true
 
 workflows:
   version: 2
