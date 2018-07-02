@@ -45,37 +45,37 @@ jobs:
       - run:
           name: test ember-lts-2.12
           command: |
-            echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+            export PATH=~/project/node_modules/.bin:$PATH
             ember try:one ember-lts-2.12 --skip-cleanup=true
       - run:
           name: Run Tests
           command:  |
-            echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+            export PATH=~/project/node_modules/.bin:$PATH
             ember try:one ember-lts-2.16 --skip-cleanup=true
       - run:
           name: Run Tests
           command:  |
-            echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+            export PATH=~/project/node_modules/.bin:$PATH
             ember try:one ember-lts-2.18 --skip-cleanup=true
       - run:
           name: Run Tests
           command:  |
-            echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+            export PATH=~/project/node_modules/.bin:$PATH
             ember try:one ember-release --skip-cleanup=true
       - run:
           name: Run Tests
           command:  |
-            echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+            export PATH=~/project/node_modules/.bin:$PATH
             ember try:one ember-beta --skip-cleanup=true
       - run:
           name: Run Tests
           command:  |
-            echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+            export PATH=~/project/node_modules/.bin:$PATH
             ember try:one ember-canary --skip-cleanup=true
       - run:
           name: Run Tests
           command:  |
-            echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
+            export PATH=~/project/node_modules/.bin:$PATH
             ember try:one ember-default --skip-cleanup=true
 
 workflows:
