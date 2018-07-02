@@ -23,8 +23,7 @@ jobs:
           name: Yarn Install
           command: |
             echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
-            yarn global add ember-cli --non-interactive --no-lockfile --verbose
-            yarn global add ember-source-channel-url --non-interactive --no-lockfile --verbose
+            yarn install --non-interactive --no-lockfile --verbose
       - run:
           name: Set node_modules bin path
           command: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
