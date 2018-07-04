@@ -1,25 +1,25 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
-/tmp
+/dist/
+/tmp/
 
 # dependencies
-/node_modules
-/bower_components
+/bower_components/
+/node_modules/
 
 # misc
+/.circleci/scenarios.txt
 /.sass-cache
 /connect.lock
-/yarn.lock
-/coverage/*
+/coverage/
 /libpeerconnection.log
-npm-debug.log*
-yarn-error.log
-testem.log
+/npm-debug.log*
+/testem.log
+/yarn.lock
+/yarn-error.log
 
 # ember-try
-.node_modules.ember-try/
-bower.json.ember-try
-package.json.ember-try
-.circleci/scenarios.txt
+/.node_modules.ember-try/
+/bower.json.ember-try
+/package.json.ember-try
