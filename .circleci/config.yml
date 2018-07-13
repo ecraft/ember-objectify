@@ -14,8 +14,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-npm-deps-{{ .Branch }}-
-            - v1-npm-deps-
+            - "{{ .Environment.CACHE_KEY_PREFIX }}-v1-npm-deps-{{ .Branch }}-"
+            - "{{ .Environment.CACHE_KEY_PREFIX }}-v1-npm-deps-"
       - run:
           name: Keyscan Github (HACK)
           command: ssh-keyscan -H github.com > ~/.ssh/known_hosts
@@ -28,7 +28,7 @@ jobs:
           name: Set node_modules bin path
           command: echo 'export PATH=~/project/node_modules/.bin:$PATH' >> $BASH_ENV
       - save_cache:
-          key: v1-npm-deps-{{ .Branch }}
+          key: "{{ .Environment.CACHE_KEY_PREFIX }}-v1-npm-deps-{{ .Branch }}"
           paths:
             - ../.cache
       - persist_to_workspace:
